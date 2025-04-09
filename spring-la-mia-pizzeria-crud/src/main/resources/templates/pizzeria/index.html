@@ -10,45 +10,32 @@
     <body>
         <div class="container">
 
-            <div th:if="${list.isEmpty()}">
-                <h2> La lista è vuota</h2>
-            </div>
-    
-            <div th:unless="${list.isEmpty()}">
-                <h1 class="text-center my-4 text-decoration-underline text-success">Elenco pizze</h1>
-                <table>
-                    <thead>
-                        <tr>
-                            <th>
-                                Nome
-                            </th>
-                            <th>
-                                Descrizione
-                            </th>
-                            <th>
-                                Prezzo
-                            </th>
-                            <th>
-                                Foto
-                            </th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr th:each="pizza : ${list}">
-                            <td th:text="${pizza.nome}">
-                            </td>
-                            <td th:text="${pizza.descrizione}">
-                            </td>
-                            <td th:text="${pizza.prezzo}">
-                            </td>
-                            <td>
-                                <img th:src="${pizza.foto}" alt="foto pizza">
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
+            <div th:insert="fragment :: navbar"></div>
+            
+            <h1 class="text-center my-2 text-danger">Crea la tua pizza!</h1>
+            <form action="" class="mx-auto col-6">
+                <div class="mb-3">
+                    <label for="nome" class="form-label">Nome</label>
+                    <input type="text" class="form-control" id="nome">
+                </div>
+
+                <div class="mb-3">
+                    <label for="descrizione" class="form-label">Descrizione</label>
+                    <input type="text" class="form-control" id="descrizione">
+                </div>
+
+                <div class="mb-3">
+                    <label for="prezzo" class="form-label">Prezzo</label>
+                    <input type="text" class="form-control" id="prezzo">
+                </div>
+
+                <div class="mb-3">
+                    <label for="foto" class="form-label">Foto</label>
+                    <input type="text" class="form-control" id="foto">
+                </div>
+
+                <button type="submit" class="btn btn-primary">Crea</button>
+            </form>
 
         <div th:insert="fragment :: bootstrapJS"></div>
 

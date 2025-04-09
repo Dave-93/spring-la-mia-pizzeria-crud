@@ -19,9 +19,16 @@ public class PizzaController {
     private PizzaRepository pizzaRepository;
 
     @GetMapping()
+    public String elenco(Model model) {
+        List<Pizza> listaPizze = pizzaRepository.findAll();
+        model.addAttribute("list", listaPizze);
+        return "pizzeria/elencoPizze";
+    }
+
+    @GetMapping("/index")
     public String index(Model model) {
         List<Pizza> listaPizze = pizzaRepository.findAll();
         model.addAttribute("list", listaPizze);
         return "pizzeria/index";
-    }
+    } 
 }
