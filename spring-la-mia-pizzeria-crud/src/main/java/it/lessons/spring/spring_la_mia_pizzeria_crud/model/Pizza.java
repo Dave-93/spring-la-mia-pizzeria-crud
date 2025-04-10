@@ -6,7 +6,8 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
-
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.Size;
 @Entity
 @Table(name = "pizza") 
 public class Pizza {
@@ -15,12 +16,15 @@ public class Pizza {
     @GeneratedValue(strategy=GenerationType.IDENTITY)
     private Integer id;
     
+    @NotBlank(message = "Nome obbligatorio")
     @Column(unique=true, nullable=false)
     private String nome;
 
     @Column(length=1000)
     private String descrizione;
 
+    @NotBlank(message = "Prezzo obbligatorio")
+    @Size(min = 1, message="Non può avere un costo di 0!!")
     private double prezzo;
 
     private String foto;
