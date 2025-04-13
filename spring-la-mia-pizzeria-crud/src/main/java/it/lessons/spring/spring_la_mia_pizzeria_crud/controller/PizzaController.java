@@ -93,4 +93,11 @@ public class PizzaController {
     }
     /* */
 
+    /*Cancellazione*/
+    @PostMapping("/cancella/{id}")
+    public String cancella(@PathVariable("id") Integer id) {
+        pizzaRepository.deleteById(id);
+        return "redirect:/pizzeria";
+    }    
+    /* */
 }
