@@ -1,0 +1,37 @@
+<!DOCTYPE HTML>
+ <html xmlns:th="http://www.thymeleaf.org">
+ 
+    <head>
+        <div th:insert="fragment :: bootstrapCss"></div>
+
+        <title>Elenco Pizze</title>
+    </head>
+    
+    <body>
+        <div class="container">
+
+            <div th:insert="fragment :: navbar"></div>
+
+            <div class="container text-center" th:object="${pizza}">
+                <h1 th:text="*{nome}" class="mb-3"></h1>
+
+                <div>
+                    <dl>
+                        <dt>Immagine</dt>
+                        <dd>
+                            <img th:src="*{foto}" alt="Foto della pizza" class="img-fluid" />
+                        </dd>
+                        <dt>Prezzo</dt>
+                        <dd th:text="*{prezzo}"></dd>
+                        <th:block th:if="*{descrizione} != null and *{descrizione} != ''">
+                            <dt>Descrizione</dt>
+                            <dd th:text="*{descrizione}"></dd>
+                        </th:block>
+                    </dl>
+                </div>
+
+        </div>
+
+        <div th:insert="fragment :: bootstrapJS"></div>
+    </body>
+ </html>

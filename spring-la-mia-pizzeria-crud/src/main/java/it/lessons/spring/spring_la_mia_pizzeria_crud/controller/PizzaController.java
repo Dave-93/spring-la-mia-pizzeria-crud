@@ -2,6 +2,7 @@ package it.lessons.spring.spring_la_mia_pizzeria_crud.controller;
 
 import java.text.NumberFormat;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -60,4 +62,20 @@ public class PizzaController {
         redirectAttributes.addFlashAttribute("successMessage", "Pizza creata");
         return "redirect:/pizzeria";
     }    
+
+    @GetMapping("/dettaglio/{id}")
+    public String dettaglio(@PathVariable("id") Integer id, Model model) {
+        Optional<Pizza> optPizza = pizzaRepository.findById(id);
+        if (optPizza.isPresent()) {
+            model.addAttribute("pizza", pizzaRepository.findById(id).get());
+            return "/pizzeria/dettaglio";
+        }
+
+        model.addAttribute("errorCause",
+                "Non esiste un libro con id " + id);
+        model.addAttribute("errorMessage",
+                "Errore di ricerca del libro");
+
+        return "/error_pages/generic_error";
+    }
 }
