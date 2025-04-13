@@ -47,6 +47,7 @@ public class PizzaController {
         return "pizzeria/index";
     }
 
+    /*Aggiungi */
     @GetMapping("/addPizza")
     public String addPizza(Model model) {
         model.addAttribute("pizza", new Pizza());
@@ -62,7 +63,9 @@ public class PizzaController {
         redirectAttributes.addFlashAttribute("successMessage", "Pizza creata");
         return "redirect:/pizzeria";
     }    
+    /* */
 
+    /*Dettaglio*/
     @GetMapping("/dettaglio/{id}")
     public String dettaglio(@PathVariable("id") Integer id, Model model) {
         Optional<Pizza> optPizza = pizzaRepository.findById(id);
@@ -70,12 +73,24 @@ public class PizzaController {
             model.addAttribute("pizza", pizzaRepository.findById(id).get());
             return "/pizzeria/dettaglio";
         }
-
-        model.addAttribute("errorCause",
-                "Non esiste un libro con id " + id);
-        model.addAttribute("errorMessage",
-                "Errore di ricerca del libro");
-
-        return "/error_pages/generic_error";
+        return "redirect:/pizzeria";
     }
+    /* */
+
+    /*Modifica*/
+    @GetMapping("/modifica/{id}")
+    public String modifica(@PathVariable("id") Integer id, Model model) {
+        model.addAttribute("pizza", pizzaRepository.findById(id).get());
+        return "/pizzeria/modifica";
+    }
+    @PostMapping("/modifica/{id}")
+    public String aggiornamento(@PathVariable Integer id, @Valid @ModelAttribute("pizza") Pizza formPizza, BindingResult bindingResult, Model model) {
+        if (bindingResult.hasErrors()) {
+            return "/pizzeria/modifica";
+        }
+        pizzaRepository.save(formPizza);
+        return "redirect:/pizzeria";
+    }
+    /* */
+
 }
