@@ -4,7 +4,7 @@
     <head>
         <div th:insert="fragment :: bootstrapCss"></div>
 
-        <title>Spring Pizzeria</title>
+        <title>Elenco Pizze</title>
     </head>
     
     <body>
@@ -12,7 +12,54 @@
 
             <div th:insert="fragment :: navbar"></div>
             
-            <p class="text-center fs-3 mt-5 mx-5">Aggiungi una nuova pizza o visualizza quelle già presenti usando i bottoni!</p>
+            <div th:if="${list.isEmpty()}">
+                <h2> La lista è vuota</h2>
+            </div>
+    
+            <div th:unless="${list.isEmpty()}">
+                
+                <h1 class="text-center my-4 text-decoration-underline text-success">Elenco pizze</h1>
+
+                <th:block th:if="${successMessage != null}">
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        <span th:text="${successMessage}"></span>
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                </th:block>
+
+                <table class="table col-8">
+                    <thead>
+                        <tr>
+                            <th class="text-center col-2">
+                                Nome
+                            </th>
+                            <th class="text-center col-3">
+                                Descrizione
+                            </th>
+                            <th class="text-center col-1">
+                                Prezzo
+                            </th>
+                            <th class="text-center col-2">
+                                Foto
+                            </th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr th:each="pizza : ${list}">
+                            <td th:text="${pizza.nome}" class="text-center">
+                            </td>
+                            <td th:text="${pizza.descrizione}" class="text-center">
+                            </td>
+                            <td th:text="${pizza.prezzo}" class="text-center">
+                            </td>
+                            <td>
+                                <img th:src="${pizza.foto}" class="text-center" alt="foto pizza">
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
 
         <div th:insert="fragment :: bootstrapJS"></div>
 
