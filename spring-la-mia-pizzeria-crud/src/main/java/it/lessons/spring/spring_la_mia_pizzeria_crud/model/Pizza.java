@@ -1,5 +1,7 @@
 package it.lessons.spring.spring_la_mia_pizzeria_crud.model;
 
+import java.math.BigDecimal;
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -25,8 +27,8 @@ public class Pizza {
     private String descrizione;
 
     @NotNull(message = "Prezzo obbligatorio")
-    @DecimalMin(value = "1.00", inclusive = true, message="Il prezzo deve essere maggiore di 0")
-    private Double prezzo;
+    @DecimalMin(value = "1", inclusive = true, message="Il prezzo deve essere almeno di 1€")
+    private BigDecimal prezzo;
 
     private String foto;
 
@@ -48,10 +50,10 @@ public class Pizza {
     public void setDescrizione(String descrizione) {
         this.descrizione = descrizione;
     }
-    public Double getPrezzo() {
+    public BigDecimal getPrezzo() {
         return prezzo;
     }
-    public void setPrezzo(Double prezzo) {
+    public void setPrezzo(BigDecimal prezzo) {
         this.prezzo = prezzo;
     }
     public String getFoto() {
